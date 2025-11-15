@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="HDToday - Stream trending movies, TV shows">
+  <title>HDToday | Movies & TV Shows</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Local Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-spinner"></div>
+    <p>Loading awesome content...</p>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-play-circle"></i>
+        <span>HDToday</span>
+      </div>
+      
+      <nav class="nav-menu">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Movies</a>
+        <a href="#" class="nav-link">TV Shows</a>
+        <a href="#" class="nav-link">Trending</a>
+      </nav>
+      
+      <div class="header-actions">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Enter keywords..." id="header-search">
+          <button class="search-btn" onclick="performSearch()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Search Section -->
+    <section class="hero-search">
+      <div class="container">
+        <h1 class="hero-title">Find Movies, TV shows and more</h1>
+        <div class="search-box-large">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Enter keywords..." class="large-search-input" id="hero-search">
+          <button class="search-btn-large" onclick="performHeroSearch()">Search</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Sections -->
+    <section class="content-section">
+      <div class="container">
+        <!-- Trending TV Shows -->
+        <div class="section-block">
+          <h3 class="block-title">Trending TV Shows</h3>
+          <div class="media-grid" id="trending-tv">
+            <!-- TV shows will be loaded here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Trending Movies -->
+        <div class="section-block">
+          <h3 class="block-title">Trending Movies</h3>
+          <div class="media-grid" id="trending-movies">
+            <!-- Movies will be loaded here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Latest Movies -->
+        <div class="section-block">
+          <h3 class="block-title">Latest Movies</h3>
+          <div class="media-grid" id="latest-movies">
+            <!-- Latest movies will be loaded here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Latest TV Shows -->
+        <div class="section-block">
+          <h3 class="block-title">Latest TV Shows</h3>
+          <div class="media-grid" id="latest-tv">
+            <!-- Latest TV shows will be loaded here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Popular Anime -->
+        <div class="section-block">
+          <h3 class="block-title">Popular Anime</h3>
+          <div class="media-grid" id="popular-anime">
+            <!-- Anime will be loaded here by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Results Section (Hidden by default) -->
+    <section class="content-section search-results-section" id="search-results-section" style="display: none;">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Search Results</h2>
+          <button class="btn btn-outline" onclick="hideSearchResults()">
+            <i class="fas fa-arrow-left"></i> Back to Browse
+          </button>
+        </div>
+        <div class="media-grid" id="search-results">
+          <!-- Search results will be loaded here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Video Modal -->
+  <div class="modal" id="video-modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="modal-body">
+        <div class="modal-poster">
+          <img id="modal-poster-img" src="" alt="Movie poster">
+        </div>
+        <div class="modal-info">
+          <h2 id="modal-title"></h2>
+          <div class="modal-meta">
+            <span id="modal-year"></span>
+            <span id="modal-rating"></span>
+            <span id="modal-runtime"></span>
+          </div>
+          <p id="modal-overview"></p>
+          <div class="modal-actions">
+            <button class="btn btn-primary" onclick="playMedia()">
+              <i class="fas fa-play"></i> Play Now
+            </button>
+            <button class="btn btn-outline" onclick="addToFavorites()">
+              <i class="far fa-heart"></i> Add to Favorites
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <i class="fas fa-play-circle"></i>
+            <span>HDToday</span>
+          </div>
+          <p class="footer-disclaimer">
+            This site uses TMDB API but is not endorsed or certified by TMDB.
+          </p>
+        </div>
+        
+        <div class="footer-links">
+          <a href="#">Android App</a>
+          <a href="#">Terms of service</a>
+          <a href="#">Contact</a>
+          <a href="#">Sitemap</a>
+          <a href="#">FAQ</a>
+        </div>
+        
+        <div class="footer-copyright">
+          <p>&copy; 2025 HDToday. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
